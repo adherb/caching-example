@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, use } from "react";
-import { loadPosts } from "../data/blogPosts";
+import { loadPosts } from "@/data/blogPosts";
 import Link from "next/link";
 
 export default function BlogPost({ params }) {
@@ -54,7 +54,7 @@ export default function BlogPost({ params }) {
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4">
       <div className="max-w-2xl mx-auto">
-        <Link href="/blog" className="text-blue-600 hover:underline mb-4 block">
+        <Link href="/" className="text-blue-600 hover:underline mb-4 block">
           ← Back to Blog Archive
         </Link>
         <article className="bg-white p-6 rounded-lg shadow">

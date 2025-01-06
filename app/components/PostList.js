@@ -16,7 +16,7 @@ export default function PostList({ posts, loading, onDelete }) {
           key={post.id}
           className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow duration-200 flex justify-between items-center"
         >
-          <Link href={`/blog/${post.id}`}>
+          <Link href={`/${post.id}`}>
             <h2 className="text-xl font-semibold text-gray-800 hover:text-blue-600">
               {post.title}
             </h2>
