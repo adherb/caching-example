@@ -12,7 +12,7 @@ export default function BlogArchive() {
     const fetchPosts = async () => {
       try {
         // Simulate API latency
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         const loadedPosts = loadPosts();
         setPosts(loadedPosts);
       } catch (error) {
@@ -29,7 +29,7 @@ export default function BlogArchive() {
     try {
       setLoading(true);
       // Simulate API latency
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       const newBlogPost = {
         ...newPost,
