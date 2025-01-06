@@ -45,7 +45,11 @@ export default function BlogPost({ params }) {
           <h1 className="text-3xl font-bold text-gray-900 mb-4">
             {post.title}
           </h1>
-          <div className="text-gray-700">{post.content}</div>
+          <div className="text-gray-700">
+            {Array.isArray(post.content)
+              ? post.content.map((item, index) => <p key={index}>{item}</p>)
+              : post.content}
+          </div>
         </article>
       </div>
     </div>
