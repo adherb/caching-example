@@ -4,13 +4,16 @@ import { loadPosts } from "../../../data/blogPosts";
 import Link from "next/link";
 
 export default function BlogPost({ params }) {
-  const { id } = params;
+  const resolvedParams = use(params);
+  const { id } = resolvedParams;
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
+        // Simulate API latency
+        await new Promise((resolve) => setTimeout(resolve, 2000));
         const foundPost = loadPosts().find((p) => p.id == id);
         setPost(foundPost);
       } catch (error) {
@@ -22,8 +25,6 @@ export default function BlogPost({ params }) {
 
     fetchPost();
   }, [id]);
-
-  console.log(post);
 
   if (loading) {
     return (
