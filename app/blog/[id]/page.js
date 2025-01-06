@@ -4,8 +4,7 @@ import { loadPosts } from "../../../data/blogPosts";
 import Link from "next/link";
 
 export default function BlogPost({ params }) {
-  const unwrappedParams = use(params);
-  const { id } = unwrappedParams;
+  const { id } = params;
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
 

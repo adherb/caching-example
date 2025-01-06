@@ -3,29 +3,27 @@ import { useState, useEffect } from "react";
 import { loadPosts, addPost, deletePost } from "../../data/blogPosts";
 import PostList from "./components/PostList";
 import CreatePostForm from "./components/CreatePostForm";
-import useSWR from "swr";
 
 export default function BlogArchive() {
-  const { data: posts, error, loading: isLoading } = useSWR("post", loadPosts);
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // const [posts, setPosts] = useState([]);
-  // const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        // Simulate API latency
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        const loadedPosts = loadPosts();
+        setPosts(loadedPosts);
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  // useEffect(() => {
-  //   const fetchPosts = async () => {
-  //     try {
-  //       await new Promise((resolve) => setTimeout(resolve, 2000));
-  //       setPosts(loadPosts());
-  //     } catch (error) {
-  //       console.error("Error fetching posts:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchPosts();
-  // }, []);
+    fetchPosts();
+  }, []);
 
   const handleNewPost = async (newPost) => {
     try {
@@ -66,7 +64,7 @@ export default function BlogArchive() {
     <div className="min-h-screen bg-gray-50 py-8 px-4">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Blog Archive</h1>
-        <PostList posts={posts} loading={isLoading} onDelete={handleDelete} />
+        <PostList posts={posts} loading={loading} onDelete={handleDelete} />
         <CreatePostForm onSubmit={handleNewPost} />
       </div>
     </div>
