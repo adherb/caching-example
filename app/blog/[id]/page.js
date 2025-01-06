@@ -2,35 +2,29 @@
 import { useState, useEffect, use } from "react";
 import { loadPosts } from "../../../data/blogPosts";
 import Link from "next/link";
-import useSWR from "swr";
-import { fetcher } from "@/app/lib/fetcher";
 
 export default function BlogPost({ params }) {
   const unwrappedParams = use(params);
   const { id } = unwrappedParams;
-  const { data: posts, error, loading } = useSWR("post", fetcher);
-  const post = loadPosts().find((p) => p.id == id);
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const foundPost = loadPosts().find((p) => p.id == id);
+        setPost(foundPost);
+      } catch (error) {
+        console.error("Error fetching post:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPost();
+  }, [id]);
 
   console.log(post);
-
-  // const [post, setPost] = useState(null);
-  // const [loading, setLoading] = useState(true);
-
-  // useEffect(() => {
-  //   const fetchPost = async () => {
-  //     try {
-  //       await new Promise((resolve) => setTimeout(resolve, 2000));
-  //       const foundPost = loadPosts().find((p) => p.id == id);
-  //       setPost(foundPost);
-  //     } catch (error) {
-  //       console.error("Error fetching post:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   fetchPost();
-  // }, [id]);
 
   if (loading) {
     return (

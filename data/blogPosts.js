@@ -1,49 +1,26 @@
-const defaultPosts = [
-  {
-    id: 1,
-    title: "Getting Started with Next.js",
-    content:
-      "Next.js is a powerful framework for building React applications...",
-    date: "2024-03-20T12:00:00.000Z",
-  },
-  {
-    id: 2,
-    title: "Understanding React Hooks",
-    content: "Hooks are a revolutionary addition to React...",
-    date: "2024-03-21T12:00:00.000Z",
-  },
-  {
-    id: 3,
-    title: "The Power of TypeScript",
-    content: "TypeScript adds static typing to JavaScript...",
-    date: "2024-03-22T12:00:00.000Z",
-  },
-  {
-    id: 4,
-    title: "CSS-in-JS Solutions Compared",
-    content: "Exploring popular CSS-in-JS libraries and their pros and cons...",
-    date: "2024-03-23T12:00:00.000Z",
-  },
-  {
-    id: 5,
-    title: "State Management in 2024",
-    content: "From Redux to Zustand: Modern state management approaches...",
-    date: "2024-03-24T12:00:00.000Z",
-  },
-];
+import fs from "fs";
+import path from "path";
+
+const postsFile = path.join(process.cwd(), "data", "posts.json");
 
 export function loadPosts() {
-  if (typeof window === "undefined") return defaultPosts;
-
-  const savedPosts = localStorage.getItem("blogPosts");
-  return savedPosts ? JSON.parse(savedPosts) : defaultPosts;
+  try {
+    const jsonData = fs.readFileSync(postsFile, "utf8");
+    return JSON.parse(jsonData).posts;
+  } catch (error) {
+    console.error("Error reading posts:", error);
+    return [];
+  }
 }
 
 export function savePosts(posts) {
-  if (typeof window === "undefined") return posts;
-
-  localStorage.setItem("blogPosts", JSON.stringify(posts));
-  return posts;
+  try {
+    fs.writeFileSync(postsFile, JSON.stringify({ posts }, null, 2));
+    return posts;
+  } catch (error) {
+    console.error("Error saving posts:", error);
+    return posts;
+  }
 }
 
 export function addPost(post) {
