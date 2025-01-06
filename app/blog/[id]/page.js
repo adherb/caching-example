@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, use } from "react";
-import { loadPosts } from "../../../data/blogPosts";
+import { loadPosts } from "../data/blogPosts";
 import Link from "next/link";
 
 export default function BlogPost({ params }) {
@@ -13,7 +13,7 @@ export default function BlogPost({ params }) {
     const fetchPost = async () => {
       try {
         // Simulate API latency
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         const foundPost = loadPosts().find((p) => p.id == id);
         setPost(foundPost);
       } catch (error) {
