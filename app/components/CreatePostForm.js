@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { addPost } from "../../../data/blogPosts";
 
 export default function CreatePostForm({ onSubmit }) {
   const [newPost, setNewPost] = useState({ title: "", content: "" });

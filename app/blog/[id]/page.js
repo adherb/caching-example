@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, use } from "react";
-import { loadPosts } from "../../../data/blogPosts";
+import { loadPosts } from "../data/blogPosts";
 import Link from "next/link";
 
 export default function BlogPost({ params }) {
