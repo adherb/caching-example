@@ -1,8 +1,12 @@
 "use client";
 import useSWR from "swr";
-import { fetchPost } from "@/lib/api";
+import fetcher from "@/lib/fetcher";
 import Link from "next/link";
 import { use } from "react";
+
+const fetchPost = async (id) => {
+  return fetcher(`/api/posts/${id}`);
+};
 
 export default function BlogPost({ params }) {
   const unwrappedParams = use(params);

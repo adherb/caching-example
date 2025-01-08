@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CheckoutButton from "./CheckoutButton";
 
 export default function CreatePostForm({ onSubmit }) {
   const [newPost, setNewPost] = useState({ title: "", content: "" });
@@ -69,6 +70,7 @@ export default function CreatePostForm({ onSubmit }) {
         >
           {isSubmitting ? "Creating..." : "Create Post"}
         </button>
+        <CheckoutButton />
       </div>
     </form>
   );
